@@ -1,0 +1,1058 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product-Deliverable.md</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="mediawiki-accessibility-product-deliverable">MediaWiki Accessibility Product Deliverable</h1>
+<h4 id="the-blue-wall-group">The Blue Wall Group:</h4>
+<p>Jesse Buck<br>
+Daniel Collier<br>
+Michael Cornacchio<br>
+Hunter Hobbs<br>
+Jaziel Pauda</p>
+<h4 id="abstract">Abstract:</h4>
+<p>The following document is a summary of the improvements we (Blue Wall Group) have made to the MediaWiki free open source software project. Our improvements addressed <abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities."><abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities.">accessibility</abbr></abbr> concerns existing within the MediaWiki core and its extensions. Three of our contributions have been integrated into the current version of the MediaWiki software. Furthermore, we have contributed four additional changes that are awaiting acceptance from project reviewers. These contributions were part of our senior capstone project during the Spring 2018 semester at Metropolitan State University of Denver.</p>
+<h4 id="contents">Contents:</h4>
+<ul>
+<li><a href="#fixing-interactive-button-elements-in-the-multimedia-viewer-extension">Fixing Interactive <code>&lt;button&gt;</code> Elements in the Multimedia Viewer Extension</a></li>
+<li><a href="#adding-label-to-input-field-in-visual-editor-categories-page">Adding Label to Input Field in Visual Editor Categories page</a></li>
+<li><a href="#correcting-div-tags-to-article-tags-in-flow-extension">Correcting <code>&lt;div&gt;</code> Tags to <code>&lt;article&gt;</code> Tags in Flow Extension</a></li>
+<li><a href="#resolving-wikistats-2.0-search-bar-placeholder-contrast-and-linting-issues">Resolving Wikistats 2.0 Search Bar Placeholder Contrast and Linting Issues</a></li>
+<li><a href="#correcting-html-heading-structure-in-quizgame-extension">Correcting HTML Heading Structure in QuizGame Extension</a></li>
+<li><a href="#integrating-mediawiki-color-palette-into-wikistats-2.0">Integrating MediaWiki Color Palette into Wikistats 2.0</a></li>
+<li><a href="#correcting-minor-markup-issues-in-wikistats-2.0">Correcting Minor Markup Issues in Wikistats 2.0</a></li>
+</ul>
+<hr>
+<h3 id="fixing-interactive-button-elements-in-the-multimedia-viewer-extension">Fixing Interactive <code>&lt;button&gt;</code> Elements in the Multimedia Viewer Extension</h3>
+<h4 id="contributors">Contributors:</h4>
+<ul>
+<li>Hunter Hobbs</li>
+<li>Jaziel Pauda</li>
+<li>Jesse Buck</li>
+</ul>
+<h4 id="status">Status:</h4>
+<ul>
+<li>This contribution was <abbr title="Integrating a set of a changes into a different version of a codebase.">merged</abbr> on 4/16/18 after 13 <abbr title="A set of changes intended to improve a codebase.">patch sets</abbr> and was <abbr title="Integrating new software into an existing codebase.">deployed</abbr> on 4/17/18.</li>
+</ul>
+<h4 id="description">Description:</h4>
+<p>Interactive <abbr title="Hypertext Markup Language (HTML) is the standard markup language for creating web pages and web applications.">HTML</abbr> elements that are not tagged correctly prevent <abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities.">accessibility</abbr> hardware from communicating the functionality of the element to the user. This can lead to confusion and a poor experience for users with <abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities.">accessibility</abbr> needs. <abbr title="The use of HTML markup to reinforce the semantics, or meaning, of information in web pages.">Semantic HTML</abbr> proposes writing <abbr title="Document Object Model (DOM) is an Application Programming Interface (API) for valid HTML and well-formed XML documents.">DOM</abbr>, to give the user clear content on purpose and functionality. Some interactive <code>&lt;button&gt;</code> elements in the <abbr title="A collection of source code that is used to build a particular software system, application, or software component.">codebase</abbr> for MultiMedia Viewer extension  were fixed to reflect their functionality.</p>
+<h4 id="visuals">Visuals:</h4>
+<ul>
+<li>Images showing button elements that were fixed:</li>
+</ul>
+<p><img src="images/CopyButton-Downlaod-Pane.png" alt=""><br>
+<img src="images/CopyButton-EmbedDialog.png" alt=""><br>
+<img src="images/CopyButton-ShareDialog.png" alt=""></p>
+<h4 id="work-performed">Work Performed:</h4>
+<ul>
+<li>Focused on the interactive button-like elements that were mentioned in the issue on <abbr title="A a web-based platform used by MediaWiki to track tasks.">Phabricator</abbr>.</li>
+<li>Interactive button elements that were not <code>&lt;button&gt;</code>'s were converted to <code>&lt;button&gt;</code>'s.</li>
+<li>Elements that were button-like in appearance but functioned as a link were not converted.</li>
+<li>The <code>&lt;div&gt;</code> in <code>permission.js</code> was converted to a <code>&lt;button&gt;</code>.</li>
+<li>The <code>copyButton</code> in <code>download.pane.js</code> and <code>reuse.embed.js</code> needed a <abbr title="Cascading Style Sheets (CSS) is a style sheet language used for describing the presentation of a document written in a markup language.">CSS</abbr> class (<code>bootstrap.less</code>) to offset some labeling text so that it wouldn’t interfere with the <abbr title="User Interface (UI) is the visual representation of a web application.">UI</abbr> for users without <abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities.">accessibility</abbr> needs.</li>
+<li>Any <abbr title="Cascading Style Sheets (CSS) is a style sheet language used for describing the presentation of a document written in a markup language.">CSS</abbr> files associated with elements that were changed were edited to keep the button-like element styling the same as it was prior to converting the <abbr title="Keywords within a web page that define how a web browser must format and display content.">tags</abbr>.</li>
+<li>In addition to converting the elements, there was an <code>&lt;a&gt;</code>-button-like element in <code>StripeButtons.js</code> that was a link. This was not converted because it is a link and the rationale is that <code>&lt;a&gt;</code>-link elements are used to go from <code>page1</code> to <code>page2</code> while buttons are used as an interactive interface within the page. A <code>tabindex</code> <abbr title="An HTML element modifier.">attribute</abbr> was added to the <code>StripeButton.js</code> <code>&lt;a&gt;</code> element to make it <abbr title="The quality of an HTML element that allows it to be navigated to, selected, and highlighted via keyboard and mouse.">focusable</abbr> by the keyboard for <abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities.">accessibility</abbr> needs.</li>
+</ul>
+<h4 id="code-changes">Code Changes:</h4>
+<ul>
+<li>resources/mmv/mmv.bootstrap.less:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -58,3 +58,12 @@</span>
+ 		}
+ 	}
+ }
+<span class="token inserted">+</span>
+<span class="token inserted">+.mw-mmv-button {</span>
+<span class="token inserted">+	background-color: transparent;</span>
+<span class="token inserted">+	min-width: 0;</span>
+<span class="token inserted">+	border: 0;</span>
+<span class="token inserted">+	padding: 0;</span>
+<span class="token inserted">+	overflow-x: hidden;</span>
+<span class="token inserted">+	text-indent: -9999em;</span>
+<span class="token inserted">+}</span>
+</code></pre>
+<ul>
+<li>resources/mmv/ui/mmv.ui.download.pane.js:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -198,8 +198,8 @@</span>
+ 			)
+ 			.appendTo( this.$attributionSection );
+ 		this.attributionInput = attributionInput;
+<span class="token deleted">-		this.$attributionCopy = this.$copyButton = $( '&lt;a&gt;' )</span>
+<span class="token deleted">-			.addClass( 'mw-mmv-dialog-copy' )</span>
+<span class="token inserted">+		this.$attributionCopy = this.$copyButton = $( '&lt;button&gt;' )</span>
+<span class="token inserted">+			.addClass( 'mw-ui-button mw-mmv-button mw-mmv-dialog-copy' )</span>
+ 			.click( function () {
+ 				// Select the text, and then try to copy the text.
+ 				// If the copy fails or is not supported, continue as if nothing had happened.
+<span class="token coord">@@ -216,6 +216,7 @@</span>
+ 				}
+ 			} )
+ 			.prop( 'title', mw.msg( 'multimediaviewer-download-attribution-copy' ) )
+<span class="token inserted">+			.text( mw.msg( 'multimediaviewer-download-attribution-copy' ) )</span>
+ 			.tipsy( {
+ 				delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
+ 				gravity: this.correctEW( 'se' )
+</code></pre>
+<ul>
+<li>resources/mmv/ui/mmv.ui.permission.js:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -96,7 +96,7 @@</span>
+ 		 * "Close" button (does not actually close the box, just makes it smaller).
+ 		 * @property {jQuery}
+ 		 */
+<span class="token deleted">-		this.$close = $( '&lt;div&gt;' )</span>
+<span class="token inserted">+		this.$close = $( '&lt;button&gt;' )</span>
+ 			.addClass( 'mw-mmv-permission-close' )
+ 			.on( 'click', function () {
+ 				permission.shrink();
+</code></pre>
+<ul>
+<li>resources/mmv/ui/mmv.ui.reuse.embed.js:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -141,8 +141,8 @@</span>
+ 			mw.mmv.actionLogger.log( 'embed-wikitext-copied' );
+ 		} );
+ 
+<span class="token deleted">-		this.$copyButton = $( '&lt;a&gt;' )</span>
+<span class="token deleted">-			.addClass( 'mw-mmv-dialog-copy' )</span>
+<span class="token inserted">+		this.$copyButton = $( '&lt;button&gt;' )</span>
+<span class="token inserted">+			.addClass( 'mw-mmv-button mw-mmv-dialog-copy' )</span>
+ 			.click( function () {
+ 				// Select the text, and then try to copy the text.
+ 				// If the copy fails or is not supported, continue as if nothing had happened.
+<span class="token coord">@@ -159,6 +159,7 @@</span>
+ 				}
+ 			} )
+ 			.prop( 'title', mw.msg( 'multimediaviewer-reuse-copy-embed' ) )
+<span class="token inserted">+			.text( mw.msg( 'multimediaviewer-reuse-copy-embed' ) )</span>
+ 			.tipsy( {
+ 				delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
+ 				gravity: this.correctEW( 'se' )
+</code></pre>
+<ul>
+<li>resources/mmv/ui/mmv.ui.reuse.embed.less:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -37,10 +37,9 @@</span>
+ 
+ 	.mw-mmv-dialog-copy {
+ 		float: right;
+<span class="token deleted">-		width: 1em;</span>
+<span class="token deleted">-		height: 1em;</span>
+<span class="token deleted">-		margin: 10px 0.5em 20px 0;</span>
+<span class="token deleted">-		padding: 0 0 0 5px;</span>
+<span class="token inserted">+		width: 1.5em;</span>
+<span class="token inserted">+		height: 1.5em;</span>
+<span class="token inserted">+		margin: 10px 0.75em 20px 0.75em;</span>
+ 	}
+ }
+</code></pre>
+<ul>
+<li>resources/mmv/ui/mmv.ui.reuse.share.js:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -67,8 +67,8 @@</span>
+ 				mw.mmv.actionLogger.log( 'share-page' );
+ 			} );
+ 
+<span class="token deleted">-		this.$copyButton = $( '&lt;a&gt;' )</span>
+<span class="token deleted">-			.addClass( 'mw-mmv-dialog-copy' )</span>
+<span class="token inserted">+		this.$copyButton = $( '&lt;button&gt;' )</span>
+<span class="token inserted">+			.addClass( 'mw-mmv-button mw-mmv-dialog-copy' )</span>
+ 			.click( function () {
+ 				// Select the text, and then try to copy the text.
+ 				// If the copy fails or is not supported, continue as if nothing had happened.
+<span class="token coord">@@ -85,6 +85,7 @@</span>
+ 				}
+ 			} )
+ 			.prop( 'title', mw.msg( 'multimediaviewer-reuse-copy-share' ) )
+<span class="token inserted">+			.text( mw.msg( 'multimediaviewer-reuse-copy-share' ) )</span>
+ 			.tipsy( {
+ 				delayIn: mw.config.get( 'wgMultimediaViewer' ).tooltipDelay,
+ 				gravity: this.correctEW( 'se' )
+</code></pre>
+<ul>
+<li>resources/mmv/ui/mmv.ui.reuse.share.less:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -18,13 +18,12 @@</span>
+ 	.mw-mmv-dialog-copy {
+ 		// style rules based on .mw-mmv-share-page-link
+ 		float: right;
+<span class="token deleted">-		width: 1.5em;</span>
+<span class="token deleted">-		height: 1.5em;</span>
+<span class="token inserted">+		width: 2em;</span>
+<span class="token inserted">+		height: 2em;</span>
+ 		// position approximately to the middle - probably fragile but couldn't find a better way as
+ 		// the height of OOUI input widget has both em and px parts and not possible to calculate
+ 		// exactly
+<span class="token deleted">-		margin: 8px 0.5em 8px 0;</span>
+<span class="token deleted">-		padding: 0 0 0 5px;</span>
+<span class="token inserted">+		margin: 8px 0.5em;</span>
+ 	}
+ }
+</code></pre>
+<ul>
+<li>resources/mmv/ui/mmv.ui.stripeButtons.js:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -59,7 +59,8 @@</span>
+ 		$button = $( '&lt;a&gt;' )
+ 			.addClass( 'mw-mmv-stripe-button empty ' + cssClass )
+ 			// elements are right-floated so we use prepend instead of append to keep the order
+<span class="token deleted">-			.prependTo( this.$buttonContainer );</span>
+<span class="token inserted">+			.prependTo( this.$buttonContainer )</span>
+<span class="token inserted">+			.attr( 'tabindex', '0' );</span>
+ 
+ 		return $button;
+ 	};
+</code></pre>
+<h4 id="links">Links:</h4>
+<p><a href="https://phabricator.wikimedia.org/T161612">Phabricator task</a></p>
+<p><a href="https://gerrit.wikimedia.org/r/#/c/408577/">Gerrit patch submission, review, and code changes</a></p>
+<p><a href="#contents">Return to contents</a></p>
+<hr>
+<h3 id="adding-label-to-input-field-in-visual-editor-categories-page">Adding Label to Input Field in Visual Editor Categories Page</h3>
+<h4 id="contributors-1">Contributors:</h4>
+<ul>
+<li>Jaziel Pauda</li>
+<li>Hunter Hobbs</li>
+</ul>
+<h4 id="status-1">Status:</h4>
+<p>This contribution was <abbr title="Integrating a set of a changes into a different version of a codebase.">merged</abbr> on 4/17/2018 after three <abbr title="A set of changes intended to improve a codebase.">patch sets</abbr> and was <abbr title="Integrating new software into an existing codebase.">deployed</abbr> on 4/24/2018.</p>
+<h4 id="description-1">Description:</h4>
+<p>Labeling all <code>&lt;input&gt;</code> elements in a page improves the interactive experience of users with visual and cognitive disabilities. Furthermore, input labels provide additional content to <abbr title="Specialty tools or hardware that people with accessibility needs use to access web content.">assistive technologies</abbr>. Previously, the input fields in the “Categories” section of the “Options” dialog page in Visual Editor relied on the input <abbr title="A control and interaction mechanism for web pages.">widget</abbr> <abbr title="A short hint that describes the expected value of an input field.">placeholders</abbr> and user intuition to convey the necessary information  to understand the user interface and fulfill user tasks. An input label was added to the first input filed in the “Categories” page to fix this issue.</p>
+<h4 id="visuals-1">Visuals:</h4>
+<ul>
+<li>
+<p>Before adding category label:<br>
+<img src="images/Before-Label.png" alt=""></p>
+</li>
+<li>
+<p>After adding category label:<br>
+<img src="images/After-Label.png" alt=""></p>
+</li>
+</ul>
+<h4 id="work-performed-1">Work Performed:</h4>
+<ul>
+<li>The name of the new label for the category input field was added into the <code>extension.json</code> file of the extension.</li>
+<li>Next, the newly added message was defined by associating the label name with the English text that would be displayed to the user in the <code>en.json</code> file of the <abbr title="A collection of source code that is used to build a particular software system, application, or software component.">codebase</abbr>.</li>
+<li>The final step in adding this new label to the messages namespace of the extension was adding a description of the new message in the ‘qqq.json’ file that described the purpose of the label as well as the information it conveyed to the user so that this new label could be translated accurately into the different languages MediaWiki supports.</li>
+<li>The final step in the coding process was utilizing MediaWiki’s OO JS UI library to add a new FieldLayout to the ‘ve.ui.MWCategoriesPage.js’ file that included the category input <abbr title="A control and interaction mechanism for web pages.">widget</abbr> as well as the newly created label for that input <abbr title="A control and interaction mechanism for web pages.">widget</abbr> to display the new elements together in the “Categories” page of the extension.</li>
+</ul>
+<h4 id="code-changes-1">Code Changes:</h4>
+<ul>
+<li>extension.json:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -1693,6 +1693,7 @@</span>
+ 				"visualeditor-categories-tool",
+ 				"visualeditor-dialog-meta-advancedsettings-label",
+ 				"visualeditor-dialog-meta-advancedsettings-section",
+<span class="token inserted">+				"visualeditor-dialog-meta-categories-addcategory-label",</span>
+ 				"visualeditor-dialog-meta-categories-category",
+ 				"visualeditor-dialog-meta-categories-data-label",
+ 				"visualeditor-dialog-meta-categories-defaultsort-help",
+</code></pre>
+<ul>
+<li>i18n/ve-mw/en.json:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -151,6 +151,7 @@</span>
+ 	"visualeditor-dialog-media-upload": "Upload",
+ 	"visualeditor-dialog-meta-advancedsettings-label": "Advanced settings",
+ 	"visualeditor-dialog-meta-advancedsettings-section": "Advanced settings",
+<span class="token inserted">+	"visualeditor-dialog-meta-categories-addcategory-label": "Add a category to this page",</span>
+ 	"visualeditor-dialog-meta-categories-category": "Category",
+ 	"visualeditor-dialog-meta-categories-data-label": "Categories",
+ 	"visualeditor-dialog-meta-categories-defaultsort-help": "You can override how this page is sorted when displayed within a category by setting a different index to sort with instead. This is often used to make pages about people show by last name, but be named with their first name shown first.",
+</code></pre>
+<ul>
+<li>i18n/ve-mw/qqq.json:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -165,6 +165,7 @@</span>
+ 	"visualeditor-dialog-media-upload": "Label for the upload button\n{{Identical|Upload}}",
+ 	"visualeditor-dialog-meta-advancedsettings-label": "Title for the advanced settings dialog section.\n{{Identical|Advanced settings}}",
+ 	"visualeditor-dialog-meta-advancedsettings-section": "Label for the advanced settings dialog section.\n{{Identical|Advanced settings}}",
+<span class="token inserted">+	"visualeditor-dialog-meta-categories-addcategory-label": "Label for field that adds a category to the page",</span>
+ 	"visualeditor-dialog-meta-categories-category": "Title of popup for editing category options.\n{{Identical|Category}}",
+ 	"visualeditor-dialog-meta-categories-data-label": "Label for the categories sub-section.\n{{Identical|Category}}",
+ 	"visualeditor-dialog-meta-categories-defaultsort-help": "Message displayed as contextual help about the &lt;nowiki&gt;{{DEFAULTSORT:…}}&lt;/nowiki&gt; control to editors in the page categories panel.",
+</code></pre>
+<ul>
+<li>modules/ve-mw/ui/pages/ve.ui.MWCategoriesPage.js:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -31,13 +31,25 @@</span>
+ 		label: ve.msg( 'visualeditor-dialog-meta-categories-data-label' ),
+ 		icon: 'tag'
+ 	} );
+<span class="token inserted">+</span>
+ 	this.categoryOptionsFieldset = new OO.ui.FieldsetLayout( {
+ 		label: ve.msg( 'visualeditor-dialog-meta-categories-options' ),
+ 		icon: 'advanced'
+ 	} );
+<span class="token inserted">+</span>
+ 	this.categoryWidget = new ve.ui.MWCategoryWidget( {
+ 		$overlay: config.$overlay
+ 	} );
+<span class="token inserted">+</span>
+<span class="token inserted">+	this.addCategory = new OO.ui.FieldLayout(</span>
+<span class="token inserted">+		this.categoryWidget,</span>
+<span class="token inserted">+		{</span>
+<span class="token inserted">+			$overlay: config.$overlay,</span>
+<span class="token inserted">+			align: 'top',</span>
+<span class="token inserted">+			label: ve.msg( 'visualeditor-dialog-meta-categories-addcategory-label' )</span>
+<span class="token inserted">+		}</span>
+<span class="token inserted">+	);</span>
+<span class="token inserted">+</span>
+ 	this.defaultSortInput = new OO.ui.TextInputWidget( {
+ 		placeholder: this.fallbackDefaultSortKey
+ 	} );
+<span class="token coord">@@ -64,7 +76,7 @@</span>
+ 	} );
+ 
+ 	// Initialization
+<span class="token deleted">-	this.categoriesFieldset.$element.append( this.categoryWidget.$element );</span>
+<span class="token inserted">+	this.categoriesFieldset.addItems( [ this.addCategory ] );</span>
+ 	this.categoryOptionsFieldset.addItems( [ this.defaultSort ] );
+ 	this.$element.append( this.categoriesFieldset.$element, this.categoryOptionsFieldset.$element );
+ };
+</code></pre>
+<h4 id="links-1">Links:</h4>
+<p><a href="https://phabricator.wikimedia.org/T146966">Phabricator issue ticket</a></p>
+<p><a href="https://gerrit.wikimedia.org/r/#/c/426139/">Gerrit patch submission, review, and code changes</a></p>
+<p><a href="#contents">Return to contents</a></p>
+<hr>
+<h3 id="correcting-div-tags-to-article-tags-in-flow-extension">Correcting <code>&lt;div&gt;</code> Tags to <code>&lt;article&gt;</code> Tags in Flow Extension</h3>
+<h4 id="contributors-2">Contributors:</h4>
+<ul>
+<li>Jaziel Pauda</li>
+</ul>
+<h4 id="status-2">Status:</h4>
+<p>This contribution was <abbr title="Integrating a set of a changes into a different version of a codebase.">merged</abbr> on 2/21/2018 after one <abbr title="A set of changes intended to improve a codebase.">patch set</abbr> and was <abbr title="Integrating new software into an existing codebase.">deployed</abbr> on 2/27/2018.</p>
+<h4 id="description-2">Description:</h4>
+<p><abbr title="Mozilla Developer Network (MDN).">MDN</abbr> and W3 specify <abbr title="Hypertext Markup Language (HTML) is the standard markup language for creating web pages and web applications.">HTML</abbr> conventions that ensure <abbr title="The use of HTML markup to reinforce the semantics, or meaning, of information in web pages.">semantic HTML</abbr>. These standards specify that the <code>&lt;article&gt;</code> <abbr title="Keywords within a web page that define how a web browser must format and display content.">tag</abbr> is for forum posts, blog posts, news stories and comments. Within the MediaWiki Flow extension, several <code>&lt;div&gt;</code> elements needed to be changed into <code>&lt;article&gt;</code> elements in order to adhere to the above standards because they contained comments and forum posts.</p>
+<h4 id="visuals-2">Visuals:</h4>
+<p>Since this improvement consisted of only <abbr title="The use of HTML markup to reinforce the semantics, or meaning, of information in web pages.">semantic HTML</abbr> changes it involved no visual changes or representation.</p>
+<h4 id="work-performed-2">Work Performed:</h4>
+<ul>
+<li>Verified, through W3 and <abbr title="Mozilla Developer Network (MDN).">MDN</abbr> <abbr title="Hypertext Markup Language (HTML) is the standard markup language for creating web pages and web applications.">HTML</abbr> standard specifications, that the correct <abbr title="The use of HTML markup to reinforce the semantics, or meaning, of information in web pages.">semantic HTML</abbr> tag for forum posts and comments are indeed <code>&lt;article&gt;</code> <abbr title="Keywords within a web page that define how a web browser must format and display content.">tags</abbr>.</li>
+<li><code>&lt;div&gt;</code> <abbr title="Keywords within a web page that define how a web browser must format and display content.">tags</abbr> that needed to be fixed were identified by searching for the <abbr title="Hypertext Markup Language (HTML) is the standard markup language for creating web pages and web applications.">HTML</abbr> <abbr title="Keywords within a web page that define how a web browser must format and display content.">tags</abbr> that had the <abbr title="Cascading Style Sheets (CSS) is a style sheet language used for describing the presentation of a document written in a markup language.">CSS</abbr> classes “flow-post-content” and “mw-parser-output” because those classes are the ones applied to elements that contain the content of the forum posts and comments created by users with the Flow extension.</li>
+<li>Identified <abbr title="Keywords within a web page that define how a web browser must format and display content.">tags</abbr> were changed to <code>&lt;article&gt;</code> <abbr title="Keywords within a web page that define how a web browser must format and display content.">tags</abbr>.</li>
+<li>All PHP templates were recompiled using the command “make compile-lightncandy”.</li>
+</ul>
+<h4 id="code-changes-2">Code Changes:</h4>
+<ul>
+<li>handlebars/compiled/flow_block_topic_moderate_post.handlebars.php:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -159,9 +159,9 @@</span>
+ '.$sp.''.((LCRun3::ifvar($cx, ((isset($in['isModerated']) &amp;&amp; is_array($in)) ? $in['isModerated'] : null))) ? '		&lt;div class="flow-moderated-post-content"&gt;
+ '.$sp.''.LCRun3::p($cx, 'flow_post_moderation_state', array(array($in),array()), '			').'		&lt;/div&gt;
+ '.$sp.'' : '').'
+<span class="token deleted">-'.$sp.'	&lt;div class="flow-post-content mw-parser-output"&gt;</span>
+<span class="token inserted">+'.$sp.'	&lt;article class="flow-post-content mw-parser-output"&gt;</span>
+ '.$sp.'		'.LCRun3::ch($cx, 'escapeContent', array(array(((isset($in['content']['format']) &amp;&amp; is_array($in['content'])) ? $in['content']['format'] : null),((isset($in['content']['content']) &amp;&amp; is_array($in['content'])) ? $in['content']['content'] : null)),array()), 'encq').'
+<span class="token deleted">-'.$sp.'	&lt;/div&gt;</span>
+<span class="token inserted">+'.$sp.'	&lt;/article&gt;</span>
+ '.$sp.'
+ '.$sp.''.LCRun3::p($cx, 'flow_post_meta_actions', array(array($in),array()), '	').''.LCRun3::p($cx, 'flow_post_actions', array(array($in),array()), '	').'&lt;/div&gt;
+ ';},'flow_anon_warning' =&gt; function ($cx, $in, $sp) {return ''.$sp.'&lt;div class="flow-anon-warning"&gt;
+</code></pre>
+<ul>
+<li>handlebars/compiled/flow_block_topic_moderate_topic.handlebars.php:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -159,9 +159,9 @@</span>
+ '.$sp.''.((LCRun3::ifvar($cx, ((isset($in['isModerated']) &amp;&amp; is_array($in)) ? $in['isModerated'] : null))) ? '		&lt;div class="flow-moderated-post-content"&gt;
+ '.$sp.''.LCRun3::p($cx, 'flow_post_moderation_state', array(array($in),array()), '			').'		&lt;/div&gt;
+ '.$sp.'' : '').'
+<span class="token deleted">-'.$sp.'	&lt;div class="flow-post-content mw-parser-output"&gt;</span>
+<span class="token inserted">+'.$sp.'	&lt;article class="flow-post-content mw-parser-output"&gt;</span>
+ '.$sp.'		'.LCRun3::ch($cx, 'escapeContent', array(array(((isset($in['content']['format']) &amp;&amp; is_array($in['content'])) ? $in['content']['format'] : null),((isset($in['content']['content']) &amp;&amp; is_array($in['content'])) ? $in['content']['content'] : null)),array()), 'encq').'
+<span class="token deleted">-'.$sp.'	&lt;/div&gt;</span>
+<span class="token inserted">+'.$sp.'	&lt;/article&gt;</span>
+ '.$sp.'
+ '.$sp.''.LCRun3::p($cx, 'flow_post_meta_actions', array(array($in),array()), '	').''.LCRun3::p($cx, 'flow_post_actions', array(array($in),array()), '	').'&lt;/div&gt;
+ ';},'flow_anon_warning' =&gt; function ($cx, $in, $sp) {return ''.$sp.'&lt;div class="flow-anon-warning"&gt;
+</code></pre>
+<ul>
+<li>handlebars/compiled/flow_post.handlebars.php:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -137,9 +137,9 @@</span>
+ '.$sp.''.((LCRun3::ifvar($cx, ((isset($in['isModerated']) &amp;&amp; is_array($in)) ? $in['isModerated'] : null))) ? '		&lt;div class="flow-moderated-post-content"&gt;
+ '.$sp.''.LCRun3::p($cx, 'flow_post_moderation_state', array(array($in),array()), '			').'		&lt;/div&gt;
+ '.$sp.'' : '').'
+<span class="token deleted">-'.$sp.'	&lt;div class="flow-post-content mw-parser-output"&gt;</span>
+<span class="token inserted">+'.$sp.'	&lt;article class="flow-post-content mw-parser-output"&gt;</span>
+ '.$sp.'		'.LCRun3::ch($cx, 'escapeContent', array(array(((isset($in['content']['format']) &amp;&amp; is_array($in['content'])) ? $in['content']['format'] : null),((isset($in['content']['content']) &amp;&amp; is_array($in['content'])) ? $in['content']['content'] : null)),array()), 'encq').'
+<span class="token deleted">-'.$sp.'	&lt;/div&gt;</span>
+<span class="token inserted">+'.$sp.'	&lt;/article&gt;</span>
+ '.$sp.'
+ '.$sp.''.LCRun3::p($cx, 'flow_post_meta_actions', array(array($in),array()), '	').''.LCRun3::p($cx, 'flow_post_actions', array(array($in),array()), '	').'&lt;/div&gt;
+ ';},'flow_anon_warning' =&gt; function ($cx, $in, $sp) {return ''.$sp.'&lt;div class="flow-anon-warning"&gt;
+</code></pre>
+<ul>
+<li>handlebars/flow_post_inner.partial.handlebars:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -11,9 +11,9 @@</span>
+ 		&lt;/div&gt;
+ 	{{/if}}
+ 
+<span class="token deleted">-	&lt;div class="flow-post-content mw-parser-output"&gt;</span>
+<span class="token inserted">+	&lt;article class="flow-post-content mw-parser-output"&gt;</span>
+ 		{{escapeContent content.format content.content}}
+<span class="token deleted">-	&lt;/div&gt;</span>
+<span class="token inserted">+	&lt;/article&gt;</span>
+ 
+ 	{{&gt; flow_post_meta_actions}}
+ 	{{&gt; flow_post_actions}}
+</code></pre>
+<h4 id="links-2">Links:</h4>
+<p><a href="https://phabricator.wikimedia.org/T175937">Phabricator task</a></p>
+<p><a href="https://gerrit.wikimedia.org/r/#/c/413091/">Gerrit patch submission, review, and code changes</a></p>
+<p><a href="#contents">Return to contents</a></p>
+<hr>
+<h3 id="resolving-wikistats-2.0-search-bar-placeholder-contrast-and-linting-issues">Resolving Wikistats 2.0 Search Bar Placeholder Contrast and Linting Issues</h3>
+<h4 id="contributors-3">Contributors:</h4>
+<ul>
+<li>Michael Cornacchio</li>
+</ul>
+<h4 id="status-3">Status:</h4>
+<p>This contribution was <abbr title="Integrating a set of a changes into a different version of a codebase.">merged</abbr> on 4/20/2018 after four <abbr title="A set of changes intended to improve a codebase.">patch sets</abbr>.</p>
+<h4 id="description-3">Description:</h4>
+<p><abbr title="Web Content Accessibility Guidelines (WCAG) is a set of practices published by the W3C that facilitate web interaction and usage.">WCAG</abbr> establishes contrast requirements to ensure text readability.  Additionally, MediaWiki uses WikiMedia’s stylelint configuration to ensure quality <abbr title="Cascading Style Sheets (CSS) is a style sheet language used for describing the presentation of a document written in a markup language.">CSS</abbr> code. The Wikistats 2.0 serach bar <abbr title="A short hint that describes the expected value of an input field.">placeholder</abbr> did not meet <abbr title="Web Content Accessibility Guidelines (WCAG) is a set of practices published by the W3C that facilitate web interaction and usage.">WCAG</abbr> contrast requirements.  Also, stylelint identified errors in the file containing the aforementioned <abbr title="A short hint that describes the expected value of an input field.">placeholder</abbr>. The <abbr title="A short hint that describes the expected value of an input field.">placeholder</abbr> needed to be changed to a color that met contrast requirements and was also consistent with the Wikistats 2.0 color palette.</p>
+<h4 id="visuals-3">Visuals:</h4>
+<ul>
+<li>
+<p>Before contrast modification:<br>
+<img src="images/Placeholder-Before.png" alt=""></p>
+</li>
+<li>
+<p>After contrast modification:<br>
+<img src="images/Placeholder-After.png" alt=""></p>
+</li>
+</ul>
+<h4 id="work-performed-3">Work Performed:</h4>
+<ul>
+<li>Set search bar <code>type</code> <abbr title="An HTML element modifier.">attribute</abbr> to “search” rather than text.</li>
+<li>Ensured leading zero was present in all <abbr title="Cascading Style Sheets (CSS) is a style sheet language used for describing the presentation of a document written in a markup language.">CSS</abbr> <abbr title="An HTML element modifier.">attributes</abbr> that have decimal number values.</li>
+<li>Tab-indented <abbr title="Cascading Style Sheets (CSS) is a style sheet language used for describing the presentation of a document written in a markup language.">CSS</abbr> in accordance with MediaWiki’s linter.</li>
+<li>Added linter-highlighted spaces/newlines where missing.</li>
+<li>Corrected <code>border-radius</code> to MediaWiki’s standard of <code>2px</code>.</li>
+<li>Added <code>sans-serif</code> as generic backup font to <code>Lato</code>.</li>
+<li>Shortened hex color format to three digits where applicable.</li>
+<li>Set <code>placeholder</code> color to meet contrast requirements.</li>
+</ul>
+<h4 id="code-changes-3">Code Changes:</h4>
+<ul>
+<li>src/components/TopicExplorer.vue:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -18,7 +18,7 @@</span>
+ 
+         &lt;div class="ui search"&gt;
+             &lt;div class="ui icon input"&gt;
+<span class="token deleted">-                &lt;input class="prompt" type="text" v-model="searchDisplay"</span>
+<span class="token inserted">+                &lt;input class="prompt" type="search" v-model="searchDisplay"</span>
+                     placeholder="Search or Browse questions and pick one to see answers"
+                     @blur="onBlur"
+                     @keyup.enter="select"
+<span class="token coord">@@ -122,105 +122,122 @@</span>
+ 
+ &lt;style scoped&gt;
+ .animateable {
+<span class="token deleted">-    transition: all .4s;</span>
+<span class="token inserted">+	transition: all 0.4s;</span>
+ }
+ .slide.transition.container {
+<span class="token deleted">-    position: relative;</span>
+<span class="token deleted">-    height: 43px;</span>
+<span class="token deleted">-    margin: -2px -32px 0 -24px;</span>
+<span class="token inserted">+	position: relative;</span>
+<span class="token inserted">+	height: 43px;</span>
+<span class="token inserted">+	margin: -2px -32px 0 -24px;</span>
+ }
+ .slide.transition.animateable.container.down {
+<span class="token deleted">-    height: 87px;</span>
+<span class="token inserted">+	height: 87px;</span>
+ }
+ .slide.transition.container &gt; div {
+<span class="token deleted">-    position: absolute;</span>
+<span class="token inserted">+	position: absolute;</span>
+ }
+ .animateable.topic.searcher {
+<span class="token deleted">-    top: -84px;</span>
+<span class="token inserted">+	top: -84px;</span>
+ }
+ .animateable.topic.searcher.down {
+<span class="token deleted">-    top: 0;</span>
+<span class="token inserted">+	top: 0;</span>
+ }
+ 
+<span class="token deleted">-.xui.grey.corner.button, .ui.grey.inverted.segment {</span>
+<span class="token deleted">-    background-color: #72777d!important;</span>
+<span class="token inserted">+.xui.grey.corner.button,</span>
+<span class="token inserted">+.ui.grey.inverted.segment {</span>
+<span class="token inserted">+	background-color: #72777d !important;</span>
+ }
+ .xui.corner.button {
+<span class="token deleted">-    display: inline-block;</span>
+<span class="token deleted">-    text-align: center!important;</span>
+<span class="token deleted">-    line-height: 40px;</span>
+<span class="token deleted">-    margin: 0;</span>
+<span class="token deleted">-    width: 163px;</span>
+<span class="token deleted">-    height: 40px;</span>
+<span class="token deleted">-    border-radius: 0 0 3px 0;</span>
+<span class="token deleted">-    background-color: #72777d;</span>
+<span class="token deleted">-    cursor: pointer;</span>
+<span class="token inserted">+	display: inline-block;</span>
+<span class="token inserted">+	text-align: center !important;</span>
+<span class="token inserted">+	line-height: 40px;</span>
+<span class="token inserted">+	margin: 0;</span>
+<span class="token inserted">+	width: 163px;</span>
+<span class="token inserted">+	height: 40px;</span>
+<span class="token inserted">+	border-radius: 0 0 2px 0;</span>
+<span class="token inserted">+	background-color: #72777d;</span>
+<span class="token inserted">+	cursor: pointer;</span>
+ 
+<span class="token deleted">-    font-family: Lato;</span>
+<span class="token deleted">-    font-size: 16px;</span>
+<span class="token deleted">-    font-weight: 900;</span>
+<span class="token deleted">-    text-align: left;</span>
+<span class="token deleted">-    color: #ffffff;</span>
+<span class="token inserted">+	font-family: 'Lato', sans-serif;</span>
+<span class="token inserted">+	font-size: 16px;</span>
+<span class="token inserted">+	font-weight: 900;</span>
+<span class="token inserted">+	text-align: left;</span>
+<span class="token inserted">+	color: #fff;</span>
+ }
+ .xui.link {
+<span class="token deleted">-    cursor: pointer;</span>
+<span class="token inserted">+	cursor: pointer;</span>
+ }
+ .ui.inverted.segment {
+<span class="token deleted">-    width: 100%;</span>
+<span class="token deleted">-    height: 84px;</span>
+<span class="token deleted">-    padding: 20px 30px;</span>
+<span class="token deleted">-    margin: 0;</span>
+<span class="token deleted">-    border-radius: 0;</span>
+<span class="token deleted">-    font-size: 16px;</span>
+<span class="token deleted">-    font-weight: 900;</span>
+<span class="token deleted">-    color: #ffffff;</span>
+<span class="token inserted">+	width: 100%;</span>
+<span class="token inserted">+	height: 84px;</span>
+<span class="token inserted">+	padding: 20px 30px;</span>
+<span class="token inserted">+	margin: 0;</span>
+<span class="token inserted">+	border-radius: 0;</span>
+<span class="token inserted">+	font-size: 16px;</span>
+<span class="token inserted">+	font-weight: 900;</span>
+<span class="token inserted">+	color: #fff;</span>
+<span class="token inserted">+}</span>
+<span class="token inserted">+</span>
+<span class="token inserted">+.ui.search .ui.input ::-webkit-input-placeholder {</span>
+<span class="token inserted">+	color: #54595d;</span>
+<span class="token inserted">+}</span>
+<span class="token inserted">+</span>
+<span class="token inserted">+.ui.search .ui.input ::-ms-input-placeholder {</span>
+<span class="token inserted">+	color: #54595d;</span>
+<span class="token inserted">+}</span>
+<span class="token inserted">+</span>
+<span class="token inserted">+.ui.search .ui.input ::-moz-placeholder {</span>
+<span class="token inserted">+	color: #54595d;</span>
+<span class="token inserted">+	opacity: 1;</span>
+ }
+ 
+ .ui.search {
+<span class="token deleted">-    display: inline-block;</span>
+<span class="token deleted">-    width: 79%;</span>
+<span class="token deleted">-    margin-left: 10px;</span>
+<span class="token deleted">-    margin-right: 6px;</span>
+<span class="token inserted">+	display: inline-block;</span>
+<span class="token inserted">+	width: 79%;</span>
+<span class="token inserted">+	margin-left: 10px;</span>
+<span class="token inserted">+	margin-right: 6px;</span>
+ }
+ .ui.search .ui.input {
+<span class="token deleted">-    width: 100%;</span>
+<span class="token inserted">+	width: 100%;</span>
+ }
+ .ui.inverted.segment .ui.search .ui.input input {
+<span class="token deleted">-    height: 35px;</span>
+<span class="token deleted">-    border-radius: 0.28571429rem;</span>
+<span class="token inserted">+	height: 35px;</span>
+<span class="token inserted">+	border-radius: 2px;</span>
+ }
+ 
+<span class="token deleted">-.dropdown.button { width: 70%; margin-left: 10px; }</span>
+<span class="token inserted">+.dropdown.button {</span>
+<span class="token inserted">+	width: 70%;</span>
+<span class="token inserted">+	margin-left: 10px;</span>
+<span class="token inserted">+}</span>
+ .ui.blue.button {
+<span class="token deleted">-    background-color: #3366cc!important;</span>
+<span class="token deleted">-    width: 78px;</span>
+<span class="token inserted">+	background-color: #36c !important;</span>
+<span class="token inserted">+	width: 78px;</span>
+ }
+ 
+<span class="token deleted">-@media(max-width: 450px) {</span>
+<span class="token deleted">-    .xui.grey.corner.button {</span>
+<span class="token deleted">-        width: 100vw;</span>
+<span class="token deleted">-        margin-left: -1px;</span>
+<span class="token deleted">-        border-radius: 0;</span>
+<span class="token deleted">-    }</span>
+<span class="token deleted">-    .slide.transition.container {</span>
+<span class="token deleted">-        margin: 0;</span>
+<span class="token deleted">-    }</span>
+<span class="token deleted">-    .xui.link {</span>
+<span class="token deleted">-        margin: 0;</span>
+<span class="token deleted">-        padding: 0;</span>
+<span class="token deleted">-    }</span>
+<span class="token inserted">+@media ( max-width: 450px ) {</span>
+<span class="token inserted">+	.xui.grey.corner.button {</span>
+<span class="token inserted">+		width: 100vw;</span>
+<span class="token inserted">+		margin-left: -1px;</span>
+<span class="token inserted">+		border-radius: 0;</span>
+<span class="token inserted">+	}</span>
+<span class="token inserted">+	.slide.transition.container {</span>
+<span class="token inserted">+		margin: 0;</span>
+<span class="token inserted">+	}</span>
+<span class="token inserted">+	.xui.link {</span>
+<span class="token inserted">+		margin: 0;</span>
+<span class="token inserted">+		padding: 0;</span>
+<span class="token inserted">+	}</span>
+ }
+ 
+<span class="token deleted">-@media(max-width: 1000px) {</span>
+<span class="token deleted">-    .ui.segment.topic.searcher {</span>
+<span class="token deleted">-        padding: 10px;</span>
+<span class="token deleted">-    }</span>
+<span class="token deleted">-    .xui.link {</span>
+<span class="token deleted">-        display: inline-block;</span>
+<span class="token deleted">-        margin-bottom: 10px;</span>
+<span class="token deleted">-    }</span>
+<span class="token deleted">-    .topic.searcher .ui.search {</span>
+<span class="token deleted">-        width: 97%;</span>
+<span class="token deleted">-    }</span>
+<span class="token inserted">+@media ( max-width: 1000px ) {</span>
+<span class="token inserted">+	.ui.segment.topic.searcher {</span>
+<span class="token inserted">+		padding: 10px;</span>
+<span class="token inserted">+	}</span>
+<span class="token inserted">+	.xui.link {</span>
+<span class="token inserted">+		display: inline-block;</span>
+<span class="token inserted">+		margin-bottom: 10px;</span>
+<span class="token inserted">+	}</span>
+<span class="token inserted">+	.topic.searcher .ui.search {</span>
+<span class="token inserted">+		width: 97%;</span>
+<span class="token inserted">+	}</span>
+ }
+ &lt;/style&gt;
+</code></pre>
+<h4 id="links-3">Links:</h4>
+<p><a href="https://phabricator.wikimedia.org/T185533">Phabricator task</a></p>
+<p><a href="https://gerrit.wikimedia.org/r/#/c/426848/">Gerrit patch submission, review, and code changes</a></p>
+<p><a href="#contents">Return to contents</a></p>
+<hr>
+<h3 id="correcting-html-heading-structure-in-quizgame-extension">Correcting HTML Heading Structure in QuizGame Extension</h3>
+<h4 id="contributors-4">Contributors:</h4>
+<ul>
+<li>Jaziel Pauda</li>
+</ul>
+<h4 id="status-4">Status:</h4>
+<p>This contribution is awaiting feedback as of 4/25/2018 after two <abbr title="A set of changes intended to improve a codebase.">patch sets</abbr>.</p>
+<h4 id="description-4">Description:</h4>
+<p>MediaWiki <abbr title="Hypertext Markup Language (HTML) is the standard markup language for creating web pages and web applications.">HTML</abbr> standards specify that there must not be more than one <code>&lt;h1&gt;</code> heading per page. This specification facilitates accurate screen reader navigation, maintains a separation between navigation and content, and ensures a logical heading structure. The home page of the MediaWiki QuizGame extension was structured entirely with <code>&lt;h1&gt;</code> headings. All those headings needed to be changed to <code>&lt;h2&gt;</code> elements in order to comply with the mentioned <abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities.">accessibility</abbr> standards.</p>
+<h4 id="visuals-4">Visuals:</h4>
+<p>Since this improvement consisted of only <abbr title="The use of HTML markup to reinforce the semantics, or meaning, of information in web pages.">semantic HTML</abbr> changes it involved no visual changes or representation.</p>
+<h4 id="work-performed-4">Work Performed:</h4>
+<ul>
+<li>The work performed started with determining if the home page of the QuizGame extension was indeed structured with multiple <code>&lt;h1&gt;</code> headings.</li>
+<li>After this verification, the intended layout of this page was examined to determine if any of the headings on the page were nested section headings or were headings for separate sections.</li>
+<li>After it was determined that each heading represented the introduction of a new independent section of the home page, each of the <code>&lt;h1&gt;</code> headings was changed to a <code>&lt;h2&gt;</code> heading.</li>
+<li>Finally, <abbr title="Cascading Style Sheets (CSS) is a style sheet language used for describing the presentation of a document written in a markup language.">CSS</abbr> classes that selected the various <code>&lt;h1&gt;</code> <abbr title="Keywords within a web page that define how a web browser must format and display content.">tags</abbr> were removed from the code because the styling they applied to the headings were no longer needed with the new heading structure.</li>
+</ul>
+<h4 id="code-changes-4">Code Changes:</h4>
+<ul>
+<li>includes/specials/SpecialQuizGameHome.php:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -418,10 +418,10 @@</span>
+ 						$this-&gt;msg( 'quizgame-admin-back' )-&gt;text() . '&lt;/a&gt;
+ 				&lt;/div&gt;
+ 
+<span class="token deleted">-				&lt;h1&gt;' . $this-&gt;msg( 'quizgame-admin-flagged' )-&gt;text() . "&lt;/h1&gt;</span>
+<span class="token inserted">+				&lt;h2&gt;' . $this-&gt;msg( 'quizgame-admin-flagged' )-&gt;text() . "&lt;/h2&gt;</span>
+ 				{$flaggedQuestions}
+ 
+<span class="token deleted">-				&lt;h1&gt;" . $this-&gt;msg( 'quizgame-admin-protected' )-&gt;text() . "&lt;/h1&gt;</span>
+<span class="token inserted">+				&lt;h2&gt;" . $this-&gt;msg( 'quizgame-admin-protected' )-&gt;text() . "&lt;/h2&gt;</span>
+ 				{$protectedQuestions}
+ 
+ 			&lt;/div&gt;";
+<span class="token coord">@@ -671,7 +671,7 @@</span>
+ 						'"&gt;
+ 
+ 						&lt;div class="credit-box" id="creditBox"&gt;
+<span class="token deleted">-							&lt;h1&gt;' . $this-&gt;msg( 'quizgame-submitted-by' )-&gt;text() . "&lt;/h1&gt;</span>
+<span class="token inserted">+							&lt;h2&gt;' . $this-&gt;msg( 'quizgame-submitted-by' )-&gt;text() . "&lt;/h2&gt;</span>
+ 
+ 							&lt;div id=\"submitted-by-image\" class=\"submitted-by-image\"&gt;
+ 							&lt;a href=\"{$user_title-&gt;getFullURL()}\"&gt;
+<span class="token coord">@@ -702,13 +702,13 @@</span>
+ 
+ 						&lt;div class=\"ajax-messages\" id=\"ajax-messages\" style=\"margin:20px 0px 15px 0px;\"&gt;&lt;/div&gt;
+ 
+<span class="token deleted">-						&lt;h1&gt;" . $this-&gt;msg( 'quizgame-question' )-&gt;text() . "&lt;/h1&gt;</span>
+<span class="token inserted">+						&lt;h2&gt;" . $this-&gt;msg( 'quizgame-question' )-&gt;text() . "&lt;/h2&gt;</span>
+ 						&lt;input name=\"quizgame-question\" id=\"quizgame-question\" type=\"text\" value=\"" .
+ 							htmlspecialchars( $question['text'], ENT_QUOTES ) . "\" size=\"64\" /&gt;
+<span class="token deleted">-						&lt;h1&gt;" . $this-&gt;msg( 'quizgame-answers' )-&gt;text() . "&lt;/h1&gt;</span>
+<span class="token inserted">+						&lt;h2&gt;" . $this-&gt;msg( 'quizgame-answers' )-&gt;text() . "&lt;/h2&gt;</span>
+ 						&lt;div style=\"margin:10px 0px;\"&gt;" . $this-&gt;msg( 'quizgame-correct-answer-checked' )-&gt;text() . "&lt;/div&gt;
+ 						{$quizOptions}
+<span class="token deleted">-						&lt;h1&gt;" . $this-&gt;msg( 'quizgame-picture' )-&gt;text() . "&lt;/h1&gt;</span>
+<span class="token inserted">+						&lt;h2&gt;" . $this-&gt;msg( 'quizgame-picture' )-&gt;text() . "&lt;/h2&gt;</span>
+ 						&lt;div class=\"quizgame-edit-picture\" id=\"quizgame-edit-picture\"&gt;
+ 							{$pictag}
+ 						&lt;/div&gt;
+<span class="token coord">@@ -1170,7 +1170,7 @@</span>
+ 						"&lt;/a&gt;
+ 					&lt;/div&gt;
+ 					&lt;div class=\"credit-box\" id=\"creditBox\"&gt;
+<span class="token deleted">-						&lt;h1&gt;" . $this-&gt;msg( 'quizgame-submitted-by' )-&gt;text() . "&lt;/h1&gt;</span>
+<span class="token inserted">+						&lt;h2&gt;" . $this-&gt;msg( 'quizgame-submitted-by' )-&gt;text() . "&lt;/h2&gt;</span>
+ 
+ 						&lt;div id=\"submitted-by-image\" class=\"submitted-by-image\"&gt;
+ 							&lt;a href=\"{$user_title-&gt;getFullURL()}\"&gt;
+<span class="token coord">@@ -1363,9 +1363,9 @@</span>
+ 					htmlspecialchars( $this-&gt;getPageTitle()-&gt;getFullURL( 'questionGameAction=createGame' ) ) . '"&gt;
+ 				&lt;div id="quiz-game-errors" style="color:red"&gt;&lt;/div&gt;
+ 
+<span class="token deleted">-				&lt;h1&gt;' . $this-&gt;msg( 'quizgame-create-write-question' )-&gt;text() . '&lt;/h1&gt;</span>
+<span class="token inserted">+				&lt;h2&gt;' . $this-&gt;msg( 'quizgame-create-write-question' )-&gt;text() . '&lt;/h2&gt;</span>
+ 				&lt;input name="quizgame-question" id="quizgame-question" type="text" value="" size="64" /&gt;
+<span class="token deleted">-				&lt;h1 class="write-answer"&gt;' . $this-&gt;msg( 'quizgame-create-write-answers' )-&gt;text() . '&lt;/h1&gt;</span>
+<span class="token inserted">+				&lt;h2 class="write-answer"&gt;' . $this-&gt;msg( 'quizgame-create-write-answers' )-&gt;text() . '&lt;/h2&gt;</span>
+ 				&lt;span style="margin-top:10px;"&gt;' . $this-&gt;msg( 'quizgame-create-check-correct' )-&gt;text() . '&lt;/span&gt;
+ 				&lt;span style="display:none;" id="this-is-the-welcome-page"&gt;&lt;/span&gt;';
+ 		// the span#this-is-the-welcome-page element is an epic hack for JS
+<span class="token coord">@@ -1389,8 +1389,8 @@</span>
+ 
+ 			'&lt;/form&gt;
+ 
+<span class="token deleted">-			&lt;h1 style="margin-top:20px"&gt;' .</span>
+<span class="token deleted">-				$this-&gt;msg( 'quizgame-create-add-picture' )-&gt;text() . '&lt;/h1&gt;</span>
+<span class="token inserted">+			&lt;h2 style="margin-top:20px"&gt;' .</span>
+<span class="token inserted">+				$this-&gt;msg( 'quizgame-create-add-picture' )-&gt;text() . '&lt;/h2&gt;</span>
+ 			&lt;div id="quizgame-picture-upload"&gt;
+ 
+ 				&lt;div id="real-form"&gt;
+</code></pre>
+<ul>
+<li>resources/css/questiongame.css:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -28,14 +28,6 @@</span>
+ 	padding: 0 0 0 2px;
+ }
+ 
+<span class="token deleted">-.quizgame-edit-question h1 {</span>
+<span class="token deleted">-	font-size: 16px;</span>
+<span class="token deleted">-	font-weight: bold;</span>
+<span class="token deleted">-	border-bottom: none;</span>
+<span class="token deleted">-	color: #333;</span>
+<span class="token deleted">-	margin: 20px 0 10px 0 !important;</span>
+<span class="token deleted">-}</span>
+<span class="token deleted">-</span>
+ .quizgame-picture img {
+ 	border: 1px solid #dcdcdc;
+ 	padding: 3px;
+<span class="token coord">@@ -103,13 +95,6 @@</span>
+ 	padding: 10px 0 0 0;
+ }
+ 
+<span class="token deleted">-.quizgame-admin h1 {</span>
+<span class="token deleted">-	font-size: 18px;</span>
+<span class="token deleted">-	color: #333;</span>
+<span class="token deleted">-	font-weight: bold;</span>
+<span class="token deleted">-	margin: 0 0 20px 0 !important;</span>
+<span class="token deleted">-}</span>
+<span class="token deleted">-</span>
+ .quizgame-admin-top-links {
+ 	margin: -10px 0 20px 0;
+ }
+<span class="token coord">@@ -124,13 +109,6 @@</span>
+ 	margin: 0 0 20px 0;
+ 	padding: 0 0 20px 0;
+ 	width: 500px;
+<span class="token deleted">-}</span>
+<span class="token deleted">-</span>
+<span class="token deleted">-.quizgame-flagged-item h1 {</span>
+<span class="token deleted">-	font-size: 14px;</span>
+<span class="token deleted">-	font-weight: bold;</span>
+<span class="token deleted">-	color: #333;</span>
+<span class="token deleted">-	margin: 0 0 10px 0 !important;</span>
+ }
+ 
+ .quizgame-flagged-picture img {
+<span class="token coord">@@ -253,15 +231,6 @@</span>
+ 	margin: 8px 0 0;
+ 	padding: 10px;
+ 	padding-bottom: 60px;
+<span class="token deleted">-}</span>
+<span class="token deleted">-</span>
+<span class="token deleted">-.credit-box h1 {</span>
+<span class="token deleted">-	border-bottom: none;</span>
+<span class="token deleted">-	color: #333;</span>
+<span class="token deleted">-	font-size: 16px;</span>
+<span class="token deleted">-	font-weight: bold;</span>
+<span class="token deleted">-	padding: 0;</span>
+<span class="token deleted">-	margin: 0 0 10px !important;</span>
+ }
+ 
+ .last-game {
+<span class="token coord">@@ -406,27 +375,6 @@</span>
+ 	border: 1px solid #dcdcdc;
+ 	padding: 9px;
+ 	width: 500px;
+<span class="token deleted">-}</span>
+<span class="token deleted">-</span>
+<span class="token deleted">-.create-message h1 {</span>
+<span class="token deleted">-	font-size: 22px;</span>
+<span class="token deleted">-	border-bottom: none;</span>
+<span class="token deleted">-	font-weight: bold;</span>
+<span class="token deleted">-	margin: 0 0 10px !important;</span>
+<span class="token deleted">-}</span>
+<span class="token deleted">-</span>
+<span class="token deleted">-.quizgame-create-form h1 {</span>
+<span class="token deleted">-	color: #333;</span>
+<span class="token deleted">-	font-size: 16px;</span>
+<span class="token deleted">-	font-weight: bold;</span>
+<span class="token deleted">-	border-bottom: none;</span>
+<span class="token deleted">-	margin: 20px 0 15px 0 !important;</span>
+<span class="token deleted">-}</span>
+<span class="token deleted">-</span>
+<span class="token deleted">-h1.write-answer {</span>
+<span class="token deleted">-	color: #333;</span>
+<span class="token deleted">-	font-size: 16px;</span>
+<span class="token deleted">-	margin: 20px 0 10px 0 !important;</span>
+ }
+ 
+ .quizgame-answer-number {
+</code></pre>
+<h4 id="links-4">Links:</h4>
+<p><a href="https://phabricator.wikimedia.org/T156450">Phabricator task</a></p>
+<p><a href="https://gerrit.wikimedia.org/r/#/c/416887/">Gerrit patch submission, review, and code changes</a></p>
+<p><a href="#contents">Return to contents</a></p>
+<hr>
+<h3 id="integrating-mediawiki-color-palette-into-wikistats-2.0">Integrating MediaWiki Color Palette into Wikistats 2.0</h3>
+<h4 id="contributors-5">Contributors:</h4>
+<ul>
+<li>Jesse Buck</li>
+<li>Daniel Collier</li>
+</ul>
+<h4 id="status-5">Status:</h4>
+<p>This contribution is awaiting feedback as of 4/23/2018 after two <abbr title="A set of changes intended to improve a codebase.">patch sets</abbr>.</p>
+<h4 id="description-5">Description:</h4>
+<p>Low contrast between text and its background presents an <abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities.">accessibility</abbr> barrier. Wikistats 2.0 had several areas with poor contrast. In particular, its footer area and several text elements had inadequate contrast according to <abbr title="The World Wide Web Consortium (W3C) is an organization that establishes HTML and CSS standards.">W3C</abbr> standards. These colors needed to be changed to be <abbr title="Web Content Accessibility Guidelines (WCAG) is a set of practices published by the W3C that facilitate web interaction and usage.">WCAG</abbr> compliant, using colors sourced from an existing MediaWiki color palette. Additionally, as a result of the color changes in the footer area, underlines needed to be added to the footer links to further distinguish them from surrounding text.</p>
+<h4 id="visuals-5">Visuals:</h4>
+<ul>
+<li>Before contrast changes:<br>
+<img src="images/Detail-Page-Before.png" alt="Wikistats 2.0 page before contrast changes"></li>
+<li>After contrast changes:<br>
+<img src="images/Detail-Page-After.png" alt="Wikistats 2.0 page after contrast changes"></li>
+</ul>
+<h4 id="work-performed-5">Work Performed:</h4>
+<ul>
+<li>Changed the color of several subdued text elements.</li>
+<li>Changed the color of text and links within the footer area.</li>
+<li>Changed the background color of the footer area.</li>
+<li>Added underlines to links in the footer area.</li>
+</ul>
+<h4 id="code-changes-5">Code Changes:</h4>
+<ul>
+<li>src/App.vue:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -138,8 +138,8 @@</span>
+     border-bottom: none;
+ }
+ .ui.attached.footer.segment {
+<span class="token deleted">-    background-color: #3B3B3B;</span>
+<span class="token deleted">-    color: #AAAAAA;</span>
+<span class="token inserted">+    background-color: #54595d;</span>
+<span class="token inserted">+    color: #fff;</span>
+     border: none;
+ }
+</code></pre>
+<ul>
+<li>src/components/BottomFooter.vue:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -32,6 +32,9 @@</span>
+ &lt;/script&gt;
+ 
+ &lt;style scoped&gt;
+<span class="token deleted">-a, a:visited { color: #888; }</span>
+<span class="token inserted">+a, a:visited {</span>
+<span class="token inserted">+    color: #eaf3ff;</span>
+<span class="token inserted">+    border-bottom: 1px dashed #eaf3ff;</span>
+<span class="token inserted">+}</span>
+ .ui.centered { font-size: 1.1em; }
+ &lt;/style&gt;
+</code></pre>
+<ul>
+<li>src/components/dashboard/MetricWidget.vue:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -322,6 +322,6 @@</span>
+     margin: 4px 2px 2px 2px;
+ }
+ .subdued {
+<span class="token deleted">-    color: #9b9b9b;</span>
+<span class="token inserted">+    color: #72777d;</span>
+ }
+ &lt;/style&gt;
+</code></pre>
+<ul>
+<li>src/components/detail/Detail.vue:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -240,7 +240,7 @@</span>
+     border: solid 2px #cdcdcd!important;
+     font-size: 13px;
+     font-weight: 500;
+<span class="token deleted">-    color: #9b9b9b!important;</span>
+<span class="token inserted">+    color: #54595d!important;</span>
+     padding: 5px 9px;
+     cursor: pointer;
+ }
+</code></pre>
+<ul>
+<li>src/components/detail/GraphPanel.vue:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -201,7 +201,6 @@</span>
+ .graph.panel h2.header .subdued {
+     margin-left: 4px;
+     font-size: 18px;
+<span class="token deleted">-    color: #777;</span>
+     font-weight: 300;
+ }
+ .graph.panel .ui.right.floated.buttons {
+</code></pre>
+<h4 id="links-5">Links:</h4>
+<p><a href="https://phabricator.wikimedia.org/T185533">Phabricator task</a></p>
+<p><a href="https://gerrit.wikimedia.org/r/#/c/419958/">Gerrit patch submission, review, and code changes</a></p>
+<p><a href="#contents">Return to contents</a></p>
+<hr>
+<h3 id="correcting-minor-markup-issues-in-wikistats-2.0">Correcting Minor Markup Issues in Wikistats 2.0</h3>
+<h4 id="contributors-6">Contributors:</h4>
+<ul>
+<li>Jesse Buck</li>
+<li>Michael Cornacchio</li>
+</ul>
+<h4 id="status-6">Status:</h4>
+<p>This contribution is awaiting further work as of 4/16/2018 after one <abbr title="A set of changes intended to improve a codebase.">patch set</abbr>.</p>
+<h4 id="description-6">Description:</h4>
+<p>Minor code changes can significantly increase a page’s <abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities.">accessibility</abbr>. <abbr title="A way of annotating a document in such a way that syntax is clearly distinguishable from content.">Markup</abbr> issues in the Wikistats 2.0 extension posed a variety of <abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities.">accessibility</abbr> limiters. These included missing <abbr title="Hypertext Markup Language (HTML) is the standard markup language for creating web pages and web applications.">HTML</abbr> <abbr title="An HTML element modifier.">attributes</abbr>, labels, and <abbr title="Keywords within a web page that define how a web browser must format and display content.">tags</abbr>, as well as inappropriate elements. These needed to be resolved with various small changes.</p>
+<h4 id="work-performed-6">Work Performed:</h4>
+<ul>
+<li>Added <code>lang</code> <abbr title="An HTML element modifier.">attribute</abbr> to <code>html</code> element.</li>
+<li>Added labels to topic search input and Wiki search input.</li>
+<li>Added <code>alt</code> <abbr title="Keywords within a web page that define how a web browser must format and display content.">tag</abbr> for WikiMedia logo.</li>
+<li>Added main &lt;abbr title=“Accessible Rich Internet Applications (ARIA) are HTML attributes that define <abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities.">accessibility</abbr> adjustments for web content and applications.”&gt;ARIA label in <code>App.vue</code>.</li>
+<li>Changed search header to a <code>div</code>.</li>
+</ul>
+<h4 id="code-changes-6">Code Changes:</h4>
+<ul>
+<li>src/components/TopNav/TopNav.vue:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -2,7 +2,7 @@</span>
+ &lt;div&gt;
+     &lt;router-link :to="{project: $store.state.project}"&gt;
+         &lt;div class="wikititle ui left floated header"&gt;
+<span class="token deleted">-            &lt;img class="ui mini image" src="../../assets/Wikimedia-logo.svg"&gt;</span>
+<span class="token inserted">+            &lt;img class="ui mini image" alt="Wikimedia logo" src="../../assets/Wikimedia-logo.svg"&gt;</span>
+             &lt;span class="text"&gt;Wikimedia Statistics&lt;/span&gt;
+         &lt;/div&gt;
+     &lt;/router-link&gt;
+</code></pre>
+<ul>
+<li>src/components/TopicExplorer.vue:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -18,7 +18,8 @@</span>
+ 
+         &lt;div class="ui search"&gt;
+             &lt;div class="ui icon input"&gt;
+<span class="token deleted">-                &lt;input class="prompt" type="text" v-model="searchDisplay"</span>
+<span class="token inserted">+				&lt;label for="topicSearch"&gt;Search for a Question&lt;/label&gt;</span>
+<span class="token inserted">+                &lt;input id="topicSearch" class="prompt" type="text" v-model="searchDisplay"</span>
+                     placeholder="Search or Browse questions and pick one to see answers"
+                     @blur="onBlur"
+                     @keyup.enter="select"
+<span class="token coord">@@ -223,4 +224,9 @@</span>
+         width: 97%;
+     }
+ }
+<span class="token inserted">+</span>
+<span class="token inserted">+label[ for='topicSearch' ]</span>
+<span class="token inserted">+{</span>
+<span class="token inserted">+	display: none;</span>
+<span class="token inserted">+}</span>
+ &lt;/style&gt;
+</code></pre>
+<ul>
+<li>src/components/WikiSelector.vue:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -2,7 +2,8 @@</span>
+ &lt;div&gt;
+     &lt;div class="ui search"&gt;
+         &lt;div class="ui icon input"&gt;
+<span class="token deleted">-            &lt;input class="prompt" type="text" v-model="inputText"</span>
+<span class="token inserted">+			&lt;label for="wikiSearch"&gt;Search for a Wiki&lt;/label&gt;</span>
+<span class="token inserted">+            &lt;input id="wikiSearch" class="prompt" type="text" v-model="inputText"</span>
+                 ref="inputBox"
+                 :placeholder="placeholder"
+                 @click="open"
+<span class="token coord">@@ -344,4 +345,9 @@</span>
+         margin-left: 1em;
+     }
+ }
+<span class="token inserted">+</span>
+<span class="token inserted">+label[ for='wikiSearch' ]</span>
+<span class="token inserted">+{</span>
+<span class="token inserted">+	display: none;</span>
+<span class="token inserted">+}</span>
+ &lt;/style&gt;
+</code></pre>
+<ul>
+<li>src/components/dashboard/Dashboard.vue:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -1,10 +1,10 @@</span>
+ &lt;template&gt;
+<span class="token deleted">-&lt;section class="widgets"&gt;</span>
+<span class="token inserted">+&lt;section class="widgets" role="main"&gt;</span>
+     &lt;div class="ui clearing basic top segment"&gt;
+         &lt;h2 class="ui left floated header"&gt;Monthly overview&lt;/h2&gt;
+<span class="token deleted">-        &lt;h5 class="ui right floated header wikiselector"&gt;</span>
+<span class="token inserted">+        &lt;div class="ui right floated header wikiselector"&gt;</span>
+             &lt;wiki-selector :single="true"&gt;&lt;/wiki-selector&gt;
+<span class="token deleted">-        &lt;/h5&gt;</span>
+<span class="token inserted">+        &lt;/div&gt;</span>
+     &lt;/div&gt;
+     &lt;div class="ui basic area segment"
+         v-for="a in areas"
+</code></pre>
+<ul>
+<li>src/index.html:</li>
+</ul>
+<pre class=" language-diff"><code class="prism  language-diff"><span class="token coord">@@ -1,5 +1,5 @@</span>
+ &lt;!DOCTYPE html&gt;
+<span class="token deleted">-&lt;html&gt;</span>
+<span class="token inserted">+&lt;html lang="en"&gt;</span>
+     &lt;head&gt;
+         &lt;meta charset="utf-8"&gt;
+         &lt;meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"&gt;
+</code></pre>
+<h4 id="links-6">Links:</h4>
+<p><a href="https://phabricator.wikimedia.org/T185533">Phabricator task</a></p>
+<p><a href="https://gerrit.wikimedia.org/r/#/c/426848/">Gerrit patch, submission, review and code changes</a></p>
+<p><a href="#contents">Return to contents</a></p>
+<hr>
+</div>
+</body>
+
+</html>
