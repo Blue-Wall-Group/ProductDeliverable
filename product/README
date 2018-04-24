@@ -11,7 +11,8 @@ Blue Wall Group:
 The product deliverable is the index.html file contained in this folder. 
 
 The productDeliverable.zip file must be unzipped to be rendered properly. 
-Any external links listed in the document navigate to live URLs and must
-have a valid internet connection to be accessed. The images/ folder and
-style.css are files that the index.html file uses to reference content
-and should not be modified.
+Terms that are underlined with a dotted line will provide a tooltip
+with a definition when hovered over with the cursor. Any external links
+listed in the document navigate to live URLs and must have a valid internet
+connection to be accessed. The images/ folder and style.css are files that
+the index.html file uses to reference content and should not be modified.

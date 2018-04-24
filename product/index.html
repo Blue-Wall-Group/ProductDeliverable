@@ -17,7 +17,7 @@ Michael Cornacchio<br>
 Hunter Hobbs<br>
 Jaziel Pauda</p>
 <h4 id="abstract">Abstract:</h4>
-<p>The following document is a summary of the improvements we (Blue Wall Group) have made to the MediaWiki free open source software project. Our improvements addressed <abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities."><abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities.">accessibility</abbr></abbr> concerns existing within the MediaWiki core and its extensions. Three of our contributions have been integrated into the current version of the MediaWiki software. Furthermore, we have contributed four additional changes that are awaiting acceptance from project reviewers. These contributions were part of our senior capstone project during the Spring 2018 semester at Metropolitan State University of Denver.</p>
+<p>The following document is a summary of the improvements we (Blue Wall Group) have made to the MediaWiki free open source software project. Our improvements addressed <abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities."><abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities.">accessibility</abbr></abbr> concerns existing within the MediaWiki core and its extensions. Four of our contributions have been integrated into the current version of the MediaWiki software. Furthermore, we have contributed four additional changes that are awaiting acceptance from project reviewers. These contributions were part of our senior capstone project during the Spring 2018 semester at Metropolitan State University of Denver.</p>
 <h4 id="contents">Contents:</h4>
 <ul>
 <li><a href="#fixing-interactive-button-elements-in-the-multimedia-viewer-extension">Fixing Interactive <code>&lt;button&gt;</code> Elements in the Multimedia Viewer Extension</a></li>
@@ -41,14 +41,14 @@ Jaziel Pauda</p>
 <li>This contribution was <abbr title="Integrating a set of a changes into a different version of a codebase.">merged</abbr> on 4/16/18 after 13 <abbr title="A set of changes intended to improve a codebase.">patch sets</abbr> and was <abbr title="Integrating new software into an existing codebase.">deployed</abbr> on 4/17/18.</li>
 </ul>
 <h4 id="description">Description:</h4>
-<p>Interactive <abbr title="Hypertext Markup Language (HTML) is the standard markup language for creating web pages and web applications.">HTML</abbr> elements that are not tagged correctly prevent <abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities.">accessibility</abbr> hardware from communicating the functionality of the element to the user. This can lead to confusion and a poor experience for users with <abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities.">accessibility</abbr> needs. <abbr title="The use of HTML markup to reinforce the semantics, or meaning, of information in web pages.">Semantic HTML</abbr> proposes writing <abbr title="Document Object Model (DOM) is an Application Programming Interface (API) for valid HTML and well-formed XML documents.">DOM</abbr>, to give the user clear content on purpose and functionality. Some interactive <code>&lt;button&gt;</code> elements in the <abbr title="A collection of source code that is used to build a particular software system, application, or software component.">codebase</abbr> for MultiMedia Viewer extension  were fixed to reflect their functionality.</p>
+<p>Interactive <abbr title="Hypertext Markup Language (HTML) is the standard markup language for creating web pages and web applications.">HTML</abbr> elements that are not tagged correctly prevent <abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities.">accessibility</abbr> hardware from communicating the functionality of the element to the user. This can lead to confusion and a poor experience for users with <abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities.">accessibility</abbr> needs. <abbr title="The use of HTML markup to reinforce the semantics, or meaning, of information in web pages.">Semantic HTML</abbr> proposes writing <abbr title="Document Object Model (DOM) is an Application Programming Interface (API) for valid HTML and well-formed XML documents.">DOM</abbr> elements in a way that indicates their purpose and functionality. Some interactive <code>&lt;button&gt;</code> elements in the <abbr title="A collection of source code that is used to build a particular software system, application, or software component.">codebase</abbr> for MultiMedia Viewer extension  were fixed to reflect their functionality.</p>
 <h4 id="visuals">Visuals:</h4>
 <ul>
 <li>Images showing button elements that were fixed:</li>
 </ul>
-<p><img src="images/CopyButton-Downlaod-Pane.png" alt=""><br>
-<img src="images/CopyButton-EmbedDialog.png" alt=""><br>
-<img src="images/CopyButton-ShareDialog.png" alt=""></p>
+<p><img class="lrg-img" src="images/CopyButton-Downlaod-Pane.png" alt=""><br>
+<img class="lrg-img" src="images/CopyButton-EmbedDialog.png" alt=""><br>
+<img class="lrg-img" src="images/CopyButton-ShareDialog.png" alt=""></p>
 <h4 id="work-performed">Work Performed:</h4>
 <ul>
 <li>Focused on the interactive button-like elements that were mentioned in the issue on <abbr title="A a web-based platform used by MediaWiki to track tasks.">Phabricator</abbr>.</li>
@@ -229,19 +229,19 @@ Jaziel Pauda</p>
 <ul>
 <li>
 <p>Before adding category label:<br>
-<img src="images/Before-Label.png" alt=""></p>
+<img class="med-img" src="images/Before-Label.png" alt=""></p>
 </li>
 <li>
 <p>After adding category label:<br>
-<img src="images/After-Label.png" alt=""></p>
+<img class="med-img" src="images/After-Label.png" alt=""></p>
 </li>
 </ul>
 <h4 id="work-performed-1">Work Performed:</h4>
 <ul>
 <li>The name of the new label for the category input field was added into the <code>extension.json</code> file of the extension.</li>
 <li>Next, the newly added message was defined by associating the label name with the English text that would be displayed to the user in the <code>en.json</code> file of the <abbr title="A collection of source code that is used to build a particular software system, application, or software component.">codebase</abbr>.</li>
-<li>The final step in adding this new label to the messages namespace of the extension was adding a description of the new message in the ‘qqq.json’ file that described the purpose of the label as well as the information it conveyed to the user so that this new label could be translated accurately into the different languages MediaWiki supports.</li>
-<li>The final step in the coding process was utilizing MediaWiki’s OO JS UI library to add a new FieldLayout to the ‘ve.ui.MWCategoriesPage.js’ file that included the category input <abbr title="A control and interaction mechanism for web pages.">widget</abbr> as well as the newly created label for that input <abbr title="A control and interaction mechanism for web pages.">widget</abbr> to display the new elements together in the “Categories” page of the extension.</li>
+<li>The final step in adding this new label to the messages namespace of the extension was adding a description of the new message in the <code>qqq.json</code> file that described the purpose of the label as well as the information it conveyed to the user so that this new label could be translated accurately into the different languages MediaWiki supports.</li>
+<li>The final step in the coding process was utilizing MediaWiki’s <abbr title="Object Oriented (OO) is a programming paradigm based on the concept of objects.">OO</abbr> JavaScript <abbr title="User Interface (UI) is the visual representation of a web application.">UI</abbr> library to add a new FieldLayout to the <code>ve.ui.MWCategoriesPage.js</code> file that included the category input <abbr title="A control and interaction mechanism for web pages.">widget</abbr> as well as the newly created label for that input <abbr title="A control and interaction mechanism for web pages.">widget</abbr> to display the new elements together in the “Categories” page of the extension.</li>
 </ul>
 <h4 id="code-changes-1">Code Changes:</h4>
 <ul>
@@ -425,11 +425,11 @@ Jaziel Pauda</p>
 <ul>
 <li>
 <p>Before contrast modification:<br>
-<img src="images/Placeholder-Before.png" alt=""></p>
+<img class="med-img" src="images/Placeholder-Before.png" alt=""></p>
 </li>
 <li>
 <p>After contrast modification:<br>
-<img src="images/Placeholder-After.png" alt=""></p>
+<img class="med-img" src="images/Placeholder-After.png" alt=""></p>
 </li>
 </ul>
 <h4 id="work-performed-3">Work Performed:</h4>
@@ -853,11 +853,12 @@ Jaziel Pauda</p>
 <h4 id="description-5">Description:</h4>
 <p>Low contrast between text and its background presents an <abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities.">accessibility</abbr> barrier. Wikistats 2.0 had several areas with poor contrast. In particular, its footer area and several text elements had inadequate contrast according to <abbr title="The World Wide Web Consortium (W3C) is an organization that establishes HTML and CSS standards.">W3C</abbr> standards. These colors needed to be changed to be <abbr title="Web Content Accessibility Guidelines (WCAG) is a set of practices published by the W3C that facilitate web interaction and usage.">WCAG</abbr> compliant, using colors sourced from an existing MediaWiki color palette. Additionally, as a result of the color changes in the footer area, underlines needed to be added to the footer links to further distinguish them from surrounding text.</p>
 <h4 id="visuals-5">Visuals:</h4>
+
 <ul>
 <li>Before contrast changes:<br>
-<img src="images/Detail-Page-Before.png" alt="Wikistats 2.0 page before contrast changes"></li>
+<img class="med-lrg-img" src="images/Detail-Page-Before.png" alt="Wikistats 2.0 page before contrast changes"></li>
 <li>After contrast changes:<br>
-<img src="images/Detail-Page-After.png" alt="Wikistats 2.0 page after contrast changes"></li>
+<img class="med-lrg-img" src="images/Detail-Page-After.png" alt="Wikistats 2.0 page after contrast changes"></li>
 </ul>
 <h4 id="work-performed-5">Work Performed:</h4>
 <ul>
@@ -953,7 +954,7 @@ Jaziel Pauda</p>
 <li>Added <code>lang</code> <abbr title="An HTML element modifier.">attribute</abbr> to <code>html</code> element.</li>
 <li>Added labels to topic search input and Wiki search input.</li>
 <li>Added <code>alt</code> <abbr title="Keywords within a web page that define how a web browser must format and display content.">tag</abbr> for WikiMedia logo.</li>
-<li>Added main &lt;abbr title=“Accessible Rich Internet Applications (ARIA) are HTML attributes that define <abbr title="The inclusive practice of removing barriers that prevent interaction with, or access to websites, by people with disabilities.">accessibility</abbr> adjustments for web content and applications.”&gt;ARIA label in <code>App.vue</code>.</li>
+<li>Added main <abbr title="Accessible Rich Internet Applications (ARIA) are HTML attributes that define accessibility adjustments for web content and applications.">ARIA</abbr> label in <code>App.vue</code>.</li>
 <li>Changed search header to a <code>div</code>.</li>
 </ul>
 <h4 id="code-changes-6">Code Changes:</h4>
@@ -1049,7 +1050,7 @@ Jaziel Pauda</p>
 </code></pre>
 <h4 id="links-6">Links:</h4>
 <p><a href="https://phabricator.wikimedia.org/T185533">Phabricator task</a></p>
-<p><a href="https://gerrit.wikimedia.org/r/#/c/426848/">Gerrit patch, submission, review and code changes</a></p>
+<p><a href="https://gerrit.wikimedia.org/r/#/c/425925/">Gerrit patch, submission, review and code changes</a></p>
 <p><a href="#contents">Return to contents</a></p>
 <hr>
 </div>
